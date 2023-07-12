@@ -1,0 +1,84 @@
+package com.example.demo.serviceImp;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Student;
+import com.example.demo.repo.StudentRepository;
+import com.example.demo.service.StudentService;
+
+@Service
+public class StudentServiceImp implements StudentService {
+
+	@Autowired
+	StudentRepository repo;
+	
+	@Override
+	public Student saveStudent(Student student) {
+		Student s1 = repo.save(student);
+
+		return s1;
+	}
+
+	@Override
+	public Student updateStudent(Student student) {
+		Student s1 = repo.findById(student.getIdStudent()).orElse(null);
+		if (s1 != null) {
+			repo.save(student);
+			return student;
+		}
+		return s1;
+	}
+
+	@Override
+	public Student delectStudent(Integer id) {
+		Student s1 = repo.findById(id).orElse(null);
+		if (s1 != null) {
+			repo.delete(s1);
+			return s1;
+		}
+		return s1;
+	}
+
+	@Override
+	public List<Student> getAllStudent() {
+		List<Student> list = repo.findAll(); 
+		return list;
+	}
+
+
+	@Override
+	public Student loginStudent(String name, String password) {
+		List<Student> list = repo.findByNameStudent(name);
+		for (Student student :list ) {
+			if (student.getPasswordStudent().equals(password)) {
+				return student;
+			}
+		}
+		throw new RuntimeException("NOt found");
+	}
+
+	@Override
+	public Student updateGradeMarks(Integer id, Double marks, String garde) {
+		Student student = repo.findById(id).orElse(null);
+		if(student!=null) {
+			student.setGrade(garde);
+			student.setMarks(marks);
+			repo.save(student);
+			return student;
+		}
+		throw new RuntimeException("not found ");
+		
+	}
+
+	@Override
+	public List<Student> Save_multiStudent(List<Student> students) {
+		List<Student> list = repo.saveAll(students);
+		return list;
+		
+	}
+
+}

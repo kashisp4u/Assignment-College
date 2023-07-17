@@ -5,11 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection = "Administrator")
-<<<<<<< HEAD
 public class Administrator  {
-=======
-public class Administrator {
->>>>>>> 007c46b85b8665383b098d524713c43b746c6215
 
 	@Id
 	private int id;

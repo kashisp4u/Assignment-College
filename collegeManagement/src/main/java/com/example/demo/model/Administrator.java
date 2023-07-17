@@ -4,22 +4,32 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document(collation = "Administrator")
-public class Administrator {
+@Document(collection = "Administrator")
+public class Administrator  {
 
 	@Id
 	private int id;
 	private String nameAdmin;
 	private String passwordAdmin;
+	private String roles;
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
 
 	public Administrator() {
 	}
 
-	public Administrator(int id, String nameAdmin, String passwordAdmin) {
+	public Administrator(int id, String nameAdmin, String passwordAdmin, String roles) {
 		super();
 		this.id = id;
 		this.nameAdmin = nameAdmin;
 		this.passwordAdmin = passwordAdmin;
+		this.roles = roles;
 	}
 
 	public int getId() {

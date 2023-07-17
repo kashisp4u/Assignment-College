@@ -3,30 +3,40 @@ package com.example.demo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "Student")
+@Document(collection = "Student")
 public class Student {
-	
+
 	@Id
 	private int idStudent;
 	private String nameStudent;
 	private String passwordStudent;
-	private String subject;
+	private String course;
 	private Double marks;
 	private String grade;
+	private String role;
 
 	public Student() {
 
 	}
 
-	public Student(int idStudent, String nameStudent, String passwordStudent, String subject, Double marks,
-			String grade) {
+	public Student(int idStudent, String nameStudent, String passwordStudent, String course, Double marks, String grade,
+			String role) {
 		super();
 		this.idStudent = idStudent;
 		this.nameStudent = nameStudent;
 		this.passwordStudent = passwordStudent;
-		this.subject = subject;
+		this.course = course;
 		this.marks = marks;
 		this.grade = grade;
+		this.role = role;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public int getIdStudent() {
@@ -53,12 +63,12 @@ public class Student {
 		this.passwordStudent = passwordStudent;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getCourse() {
+		return course;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setCourse(String course) {
+		this.course = course;
 	}
 
 	public Double getMarks() {
@@ -80,7 +90,7 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [idStudent=" + idStudent + ", nameStudent=" + nameStudent + ", passwordStudent="
-				+ passwordStudent + ", subject=" + subject + ", marks=" + marks + ", grade=" + grade + "]";
+				+ passwordStudent + ", course=" + course + ", marks=" + marks + ", grade=" + grade + "]";
 	}
 
 }

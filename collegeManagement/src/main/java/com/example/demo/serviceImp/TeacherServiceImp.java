@@ -11,15 +11,15 @@ import com.example.demo.service.TeacherService;
 
 @Service
 public class TeacherServiceImp implements TeacherService {
-	
+
 	@Autowired
 	TeacherRepository repo;
 
+
 	@Override
 	public Teacher saveTeacher(Teacher teacher) {
-		
+		teacher.setRoles("TEACHER");
 		repo.save(teacher);
-		
 		return teacher;
 	}
 
@@ -31,22 +31,22 @@ public class TeacherServiceImp implements TeacherService {
 
 	@Override
 	public Teacher deleteTeacher(Integer id) {
-		Teacher  teacher = repo.findById(id).orElseThrow(null);
-		if(teacher!= null) {
+		Teacher teacher = repo.findById(id).orElseThrow(null);
+		if (teacher != null) {
 			repo.delete(teacher);
 			return teacher;
-		}else {
+		} else {
 			throw new RuntimeException("Given data is not found");
 		}
 	}
 
 	@Override
 	public Teacher updateTeacher(Teacher teacher) {
-		Teacher  teacher2 = repo.findById(teacher.getIdTeacher()).orElseThrow(null);
-		if(teacher2!= null) {
+		Teacher teacher2 = repo.findById(teacher.getIdTeacher()).orElseThrow(null);
+		if (teacher2 != null) {
 			repo.save(teacher2);
 			return teacher2;
-		}else {
+		} else {
 			throw new RuntimeException("Given data is not found ");
 		}
 	}
@@ -60,7 +60,7 @@ public class TeacherServiceImp implements TeacherService {
 			}
 		}
 		throw new RuntimeException("NOt found");
-		
+
 	}
 
 }

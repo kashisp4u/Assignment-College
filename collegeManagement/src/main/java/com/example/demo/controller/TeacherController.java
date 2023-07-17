@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,27 +30,32 @@ public class TeacherController {
 	TeacherService teacher_Service;
 	
 	@GetMapping("/loginteacher")
+	@PreAuthorize("hasAuthority('ROLE_TEACHER')")
 	ResponseEntity<Teacher> loginTeacher(@RequestParam String nameTeacher, @RequestParam String passwordTeacher) {
 		return new ResponseEntity<Teacher>(teacher_Service.loginTeacher(nameTeacher, passwordTeacher),
 				HttpStatus.FOUND);
 	}
 
 	@PostMapping("/saveStudent")
+	@PreAuthorize("hasAuthority('ROLE_TEACHER')"+"|| hasAuthority('ROLE_ADMIN')")
 	ResponseEntity<Student> saveTeacher(@RequestBody Student student) {
 		return new ResponseEntity<Student>(student_Service.saveStudent(student), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getallstudent")
+	@PreAuthorize("hasAuthority('ROLE_TEACHER')")
 	ResponseEntity<List<Student>> getAllTeacher(){
 	return new ResponseEntity<List<Student>>(student_Service.getAllStudent(),HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/updateStudent")
+	@PreAuthorize("hasAuthority('ROLE_TEACHER')")
 	ResponseEntity<Student> update_Marks_Grade(@RequestParam Integer idStudent,@RequestParam Double marks,@RequestParam  String grade) {
 		return new ResponseEntity<Student>(student_Service.updateGradeMarks(idStudent, marks, grade), HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/saveMultipleStudent")
+	@PreAuthorize("hasAuthority('ROLE_TEACHER')")
 	ResponseEntity<List<Student>> multiStudents(@RequestBody List<Student> students) {
 		return new ResponseEntity<List<Student>>(student_Service.Save_multiStudent(students), HttpStatus.CREATED);
 	}

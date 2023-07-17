@@ -28,30 +28,12 @@ import com.example.demo.repo.TeacherRepository;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
-	@Autowired
-	private AdminRepository adminRepo;
-
-	@Autowired
-	private StudentRepository studentRepo;
-
-	@Autowired
-	private TeacherRepository teacherRepo;
-
+	
 	public static final String[] ACCESS_ALL = { "/adminController/loginadmin", "/student/loginstudent",
 			"/teacher/loginteacher" };
 
 	@Bean
 	public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-		List<Administrator> admin = adminRepo.findAll();
-		List<Student> su = studentRepo.findAll();
-		List<Teacher> te = teacherRepo.findAll();
-
-		List<Object> alluser = new ArrayList<>();
-		alluser.addAll(admin);
-		alluser.addAll(su);
-		alluser.addAll(te);
-
 		List<UserDetails> usd = new ArrayList<>();
 		
 	UserDetails defaultone = User.withUsername("Shyam").password(encoder.encode("1234")).roles("ADMIN").build();
